@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import { useAuth } from '../context/AuthContext';
@@ -7,6 +8,7 @@ import ReviewModal from '../components/ReviewModal';
 import '../styles/MyBookings.css';
 
 const MyBookings = () => {
+  const { t } = useTranslation();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,7 +45,7 @@ const MyBookings = () => {
   };
 
   const handleCancelBooking = async (bookingId) => {
-    if (!window.confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')) {
+    if (!window.confirm(t('booking.cancelConfirm'))) {
       return;
     }
 
@@ -53,7 +55,7 @@ const MyBookings = () => {
       });
       fetchBookings();
     } catch (err) {
-      alert('Erreur lors de l\'annulation: ' + err.message);
+      alert(`${t('booking.cancelError')}: ${err.message}`);
     }
   };
 
@@ -63,7 +65,7 @@ const MyBookings = () => {
   };
 
   const handleReviewSubmitted = () => {
-    alert('Merci pour votre avis !');
+    alert(t('reviews.thanks'));
     fetchBookings();
   };
 
@@ -72,17 +74,17 @@ const MyBookings = () => {
     : bookings.filter(booking => booking.status === filter);
 
   if (loading) {
-    return <div className="loading">Chargement de vos réservations...</div>;
+    return <div className="loading">{t('booking.loading')}</div>;
   }
 
   if (error) {
-    return <div className="error">Erreur: {error}</div>;
+    return <div className="error">{t('common.error', { message: error })}</div>;
   }
 
   return (
     <div className="my-bookings">
       <div className="bookings-header">
-        <h1>Mes Réservations</h1>
+        <h1>{t('booking.myBookings')}</h1>
         <div className="status-filters">
           {statuses.map(status => (
             <button
@@ -90,7 +92,7 @@ const MyBookings = () => {
               className={`filter-btn ${filter === status ? 'active' : ''}`}
               onClick={() => setFilter(status)}
             >
-              {status === 'ALL' ? 'Toutes' : status}
+              {status === 'ALL' ? t('booking.statusAll') : t(`booking.status.${status}`)}
             </button>
           ))}
         </div>
@@ -109,7 +111,7 @@ const MyBookings = () => {
           ))
         ) : (
           <div className="no-bookings">
-            <p>Aucune réservation trouvée</p>
+            <p>{t('booking.none')}</p>
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import ServiceCard from '../components/ServiceCard';
@@ -6,6 +7,7 @@ import SearchBar from '../components/SearchBar';
 import '../styles/Services.css';
 
 const Services = () => {
+  const { t } = useTranslation();
   const [services, setServices] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,17 +65,17 @@ const Services = () => {
   };
 
   if (loading) {
-    return <div className="loading">Chargement des services...</div>;
+    return <div className="loading">{t('common.loading')}</div>;
   }
 
   if (error) {
-    return <div className="error">Erreur: {error}</div>;
+    return <div className="error">{t('common.error', { message: error })}</div>;
   }
 
   return (
     <div className="services-page">
       <div className="services-header">
-        <h1>Tous nos services</h1>
+        <h1>{t('services.allTitle')}</h1>
         <SearchBar onSearch={handleSearch} />
       </div>
 
@@ -84,7 +86,7 @@ const Services = () => {
             className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
             onClick={() => handleCategoryClick(category)}
           >
-            {category === 'ALL' ? 'Tous' : category}
+            {category === 'ALL' ? t('services.categories.ALL') : t(`services.categories.${category}`)}
           </button>
         ))}
       </div>
@@ -97,7 +99,7 @@ const Services = () => {
 
       {filteredServices.length === 0 && (
         <div className="no-results">
-          <p>Aucun service trouvé</p>
+          <p>{t('services.noResults')}</p>
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import { useAuth } from '../context/AuthContext';
@@ -6,6 +7,7 @@ import '../styles/BookingModal.css';
 
 const BookingModal = ({ service, onClose, onSuccess }) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     expectedAt: '',
     address: '',
@@ -47,7 +49,7 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
 
       onSuccess();
     } catch (err) {
-      setError(err.message || 'Erreur lors de la réservation');
+      setError(err.message || t('booking.error'));
     } finally {
       setLoading(false);
     }
@@ -57,7 +59,7 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Réserver: {service.name}</h2>
+          <h2>{t('booking.title', { name: service.name })}</h2>
           <button className="close-btn" onClick={onClose}>&times;</button>
         </div>
 
@@ -65,7 +67,7 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="expectedAt">Date et heure</label>
+            <label htmlFor="expectedAt">{t('booking.dateTime')}</label>
             <input
               type="datetime-local"
               id="expectedAt"
@@ -78,7 +80,7 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="address">Adresse</label>
+            <label htmlFor="address">{t('booking.address')}</label>
             <input
               type="text"
               id="address"
@@ -86,33 +88,33 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
               value={formData.address}
               onChange={handleChange}
               required
-              placeholder="Adresse complète"
+              placeholder={t('booking.addressPlaceholder')}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="notes">Notes (optionnel)</label>
+            <label htmlFor="notes">{t('booking.notes')}</label>
             <textarea
               id="notes"
               name="notes"
               value={formData.notes}
               onChange={handleChange}
               rows="4"
-              placeholder="Informations supplémentaires..."
+              placeholder={t('booking.notesPlaceholder')}
             />
           </div>
 
           <div className="price-summary">
-            <span>Prix total:</span>
+            <span>{t('booking.totalPrice')}:</span>
             <span className="total-amount">{service.priceMin} {service.currency}</span>
           </div>
 
           <div className="modal-actions">
             <button type="button" onClick={onClose} className="btn-secondary">
-              Annuler
+              {t('booking.cancel')}
             </button>
             <button type="submit" className="btn-primary" disabled={loading}>
-              {loading ? 'Réservation...' : 'Confirmer la réservation'}
+              {loading ? t('booking.booking') : t('booking.confirm')}
             </button>
           </div>
         </form>

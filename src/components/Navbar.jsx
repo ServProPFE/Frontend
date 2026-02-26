@@ -1,10 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
+import LanguageSwitcher from './LanguageSwitcher';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
@@ -20,33 +23,34 @@ const Navbar = () => {
 
         <ul className="nav-menu">
           <li className="nav-item">
-            <Link to="/" className="nav-link">Accueil</Link>
+            <Link to="/" className="nav-link">{t('nav.home')}</Link>
           </li>
           <li className="nav-item">
-            <Link to="/services" className="nav-link">Services</Link>
+            <Link to="/services" className="nav-link">{t('nav.services')}</Link>
           </li>
           {isAuthenticated && (
             <li className="nav-item">
-              <Link to="/my-bookings" className="nav-link">Mes Réservations</Link>
+              <Link to="/my-bookings" className="nav-link">{t('nav.myBookings')}</Link>
             </li>
           )}
         </ul>
 
         <div className="nav-auth">
+          <LanguageSwitcher />
           {isAuthenticated ? (
             <>
-              <span className="user-name">Bonjour, {user?.name}</span>
+              <span className="user-name">{t('nav.hello', { name: user?.name })}</span>
               <button onClick={handleLogout} className="btn-logout">
-                Déconnexion
+                {t('nav.logout')}
               </button>
             </>
           ) : (
             <>
               <Link to="/login" className="btn-login">
-                Connexion
+                {t('nav.login')}
               </Link>
               <Link to="/register" className="btn-register">
-                Inscription
+                {t('nav.register')}
               </Link>
             </>
           )}

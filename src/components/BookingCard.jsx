@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import '../styles/BookingCard.css';
 
 const BookingCard = ({ booking, onCancel, onReview, userType }) => {
+  const { t } = useTranslation();
   const getStatusColor = (status) => {
     const colors = {
       PENDING: 'yellow',
@@ -20,13 +22,13 @@ const BookingCard = ({ booking, onCancel, onReview, userType }) => {
       <div className="booking-header">
         <h3>{booking.service?.name || 'Service'}</h3>
         <span className={`status-badge ${getStatusColor(booking.status)}`}>
-          {booking.status}
+          {t(`booking.status.${booking.status}`)}
         </span>
       </div>
 
       <div className="booking-info">
         <div className="info-row">
-          <span className="label">Date:</span>
+          <span className="label">{t('booking.date')}:</span>
           <span className="value">
             {new Date(booking.expectedAt).toLocaleString()}
           </span>
@@ -34,20 +36,20 @@ const BookingCard = ({ booking, onCancel, onReview, userType }) => {
 
         {userType === 'CLIENT' && booking.provider && (
           <div className="info-row">
-            <span className="label">Prestataire:</span>
+            <span className="label">{t('booking.provider')}:</span>
             <span className="value">{booking.provider.name}</span>
           </div>
         )}
 
         {userType === 'PROVIDER' && booking.client && (
           <div className="info-row">
-            <span className="label">Client:</span>
+            <span className="label">{t('booking.client')}:</span>
             <span className="value">{booking.client.name}</span>
           </div>
         )}
 
         <div className="info-row">
-          <span className="label">Prix total:</span>
+          <span className="label">{t('booking.price')}:</span>
           <span className="value price">
             {booking.totalPrice} {booking.currency}
           </span>
@@ -55,7 +57,7 @@ const BookingCard = ({ booking, onCancel, onReview, userType }) => {
 
         {booking.detail?.address && (
           <div className="info-row">
-            <span className="label">Adresse:</span>
+            <span className="label">{t('booking.address')}:</span>
             <span className="value">{booking.detail.address}</span>
           </div>
         )}
@@ -67,7 +69,7 @@ const BookingCard = ({ booking, onCancel, onReview, userType }) => {
             onClick={() => onCancel(booking._id)}
             className="btn-cancel"
           >
-            Annuler
+            {t('booking.cancelButton')}
           </button>
         )}
         {canReview && (
@@ -75,7 +77,7 @@ const BookingCard = ({ booking, onCancel, onReview, userType }) => {
             onClick={() => onReview(booking)}
             className="btn-review"
           >
-            Laisser un avis
+            {t('reviews.leave')}
           </button>
         )}
       </div>

@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Auth.css';
 
 const Register = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     type: 'CLIENT',
     name: '',
@@ -30,12 +32,12 @@ const Register = () => {
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      setError('Les mots de passe ne correspondent pas');
+      setError(t('auth.errors.passwordMismatch'));
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères');
+      setError(t('auth.errors.passwordLength'));
       return;
     }
 
@@ -49,7 +51,7 @@ const Register = () => {
       });
       navigate('/');
     } catch (err) {
-      setError(err.message || 'Erreur lors de l\'inscription');
+      setError(err.message || t('auth.errors.register'));
     } finally {
       setLoading(false);
     }
@@ -58,12 +60,12 @@ const Register = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Inscription</h2>
+        <h2>{t('auth.registerTitle')}</h2>
         {error && <div className="error-message">{error}</div>}
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="type">Type de compte</label>
+            <label htmlFor="type">{t('auth.accountType')}</label>
             <select
               id="type"
               name="type"
@@ -71,13 +73,13 @@ const Register = () => {
               onChange={handleChange}
               required
             >
-              <option value="CLIENT">Client</option>
-              <option value="PROVIDER">Prestataire</option>
+              <option value="CLIENT">{t('auth.client')}</option>
+              <option value="PROVIDER">{t('auth.provider')}</option>
             </select>
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Nom complet</label>
+            <label htmlFor="name">{t('auth.name')}</label>
             <input
               type="text"
               id="name"
@@ -85,12 +87,12 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              placeholder="Votre nom"
+              placeholder={t('auth.namePlaceholder')}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('auth.email')}</label>
             <input
               type="email"
               id="email"
@@ -98,24 +100,24 @@ const Register = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="votre@email.com"
+              placeholder={t('auth.emailPlaceholder')}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="phone">Téléphone</label>
+            <label htmlFor="phone">{t('auth.phone')}</label>
             <input
               type="tel"
               id="phone"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+216 XX XXX XXX"
+              placeholder={t('auth.phonePlaceholder')}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>
+            <label htmlFor="password">{t('auth.password')}</label>
             <input
               type="password"
               id="password"
@@ -128,7 +130,7 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+            <label htmlFor="confirmPassword">{t('auth.confirmPassword')}</label>
             <input
               type="password"
               id="confirmPassword"
@@ -141,14 +143,14 @@ const Register = () => {
           </div>
 
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Inscription...' : 'S\'inscrire'}
+            {loading ? t('auth.registerLoading') : t('auth.registerButton')}
           </button>
         </form>
 
         <div className="auth-footer">
           <p>
-            Déjà un compte ?{' '}
-            <Link to="/login">Connectez-vous</Link>
+            {t('auth.haveAccount')}{' '}
+            <Link to="/login">{t('auth.loginLink')}</Link>
           </p>
         </div>
       </div>

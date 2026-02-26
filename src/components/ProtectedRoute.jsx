@@ -1,11 +1,13 @@
 import { Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
+  const { t } = useTranslation();
 
   if (loading) {
-    return <div className="loading">Chargement...</div>;
+    return <div className="loading">{t('common.loading')}</div>;
   }
 
   if (!isAuthenticated) {

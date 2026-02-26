@@ -1,0 +1,142 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "myBookings": "My Bookings",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "hello": "Hello, {{name}}",
+    "language": "Language"
+  },
+  "search": {
+    "placeholder": "Search for a service...",
+    "categoryAll": "All categories",
+    "button": "Search"
+  },
+  "hero": {
+    "title": "Find the right professional",
+    "subtitle": "Quality services for all your needs"
+  },
+  "offers": {
+    "title": "Deals of the moment",
+    "discount": "{{value}}% off",
+    "validUntil": "Valid until {{date}}"
+  },
+  "services": {
+    "title": "Our Services",
+    "allTitle": "All services",
+    "noResults": "No services found",
+    "descriptionFallback": "Professional service of quality",
+    "viewDetails": "View details",
+    "categories": {
+      "ALL": "All",
+      "PLOMBERIE": "Plumbing",
+      "ELECTRICITE": "Electricity",
+      "CLIMATISATION": "Air Conditioning",
+      "NETTOYAGE": "Cleaning",
+      "AUTRE": "Other"
+    }
+  },
+  "service": {
+    "description": "Description",
+    "pricing": "Pricing",
+    "duration": "Duration",
+    "minutes": "{{count}} min",
+    "from": "From",
+    "bookNow": "Book now",
+    "bookThis": "Book this service",
+    "providerAbout": "About the provider",
+    "company": "Company",
+    "experience": "Experience",
+    "years": "{{count}} years",
+    "reviews": "Customer reviews ({{count}})",
+    "noReviews": "No reviews yet",
+    "noDescription": "No description available",
+    "reviewerFallback": "Customer",
+    "noReviewComment": "No comment",
+    "onlyClients": "Only clients can book services",
+    "notFound": "Service not found"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "name": "Full name",
+    "phone": "Phone",
+    "emailPlaceholder": "you@email.com",
+    "namePlaceholder": "Your name",
+    "phonePlaceholder": "+216 XX XXX XXX",
+    "accountType": "Account type",
+    "client": "Client",
+    "provider": "Provider",
+    "loginButton": "Sign in",
+    "registerButton": "Sign up",
+    "loginLoading": "Signing in...",
+    "registerLoading": "Signing up...",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Sign in",
+    "errors": {
+      "login": "Login error",
+      "register": "Registration error",
+      "passwordMismatch": "Passwords do not match",
+      "passwordLength": "Password must be at least 6 characters"
+    }
+  },
+  "booking": {
+    "title": "Book: {{name}}",
+    "dateTime": "Date and time",
+    "address": "Address",
+    "notes": "Notes (optional)",
+    "addressPlaceholder": "Full address",
+    "notesPlaceholder": "Additional information...",
+    "totalPrice": "Total price",
+    "confirm": "Confirm booking",
+    "booking": "Booking...",
+    "error": "Booking error",
+    "cancel": "Cancel",
+    "cancelConfirm": "Are you sure you want to cancel this booking?",
+    "cancelButton": "Cancel booking",
+    "cancelError": "Cancellation error",
+    "myBookings": "My Bookings",
+    "loading": "Loading your bookings...",
+    "none": "No bookings found",
+    "statusAll": "All",
+    "status": {
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "IN_PROGRESS": "In progress",
+      "DONE": "Done",
+      "CANCELLED": "Cancelled"
+    },
+    "provider": "Provider",
+    "client": "Client",
+    "date": "Date",
+    "price": "Total price",
+    "bookNow": "Book now"
+  },
+  "reviews": {
+    "leave": "Leave a review",
+    "title": "Leave a review",
+    "service": "Service",
+    "rating": "Rating",
+    "comment": "Comment",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "thanks": "Thanks for your review!",
+    "placeholder": "Share your experience...",
+    "error": "Error submitting review"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error: {{message}}",
+    "close": "Close",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

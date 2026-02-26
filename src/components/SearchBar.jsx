@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import '../styles/SearchBar.css';
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('ALL');
+  const { t } = useTranslation();
 
   const categories = ['ALL', 'PLOMBERIE', 'ELECTRICITE', 'CLIMATISATION', 'NETTOYAGE', 'AUTRE'];
 
@@ -17,7 +19,7 @@ const SearchBar = ({ onSearch }) => {
       <div className="search-inputs">
         <input
           type="text"
-          placeholder="Rechercher un service..."
+          placeholder={t('search.placeholder')}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-input"
@@ -28,14 +30,14 @@ const SearchBar = ({ onSearch }) => {
           onChange={(e) => setCategory(e.target.value)}
           className="category-select"
         >
-          <option value="ALL">Toutes catégories</option>
+          <option value="ALL">{t('search.categoryAll')}</option>
           {categories.slice(1).map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>{t(`services.categories.${cat}`)}</option>
           ))}
         </select>
         
         <button type="submit" className="search-button">
-          Rechercher
+          {t('search.button')}
         </button>
       </div>
     </form>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import ServiceCard from '../components/ServiceCard';
@@ -6,6 +7,7 @@ import SearchBar from '../components/SearchBar';
 import '../styles/Home.css';
 
 const Home = () => {
+  const { t } = useTranslation();
   const [services, setServices] = useState([]);
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,11 +62,11 @@ const Home = () => {
   };
 
   if (loading) {
-    return <div className="loading">Chargement...</div>;
+    return <div className="loading">{t('common.loading')}</div>;
   }
 
   if (error) {
-    return <div className="error">Erreur: {error}</div>;
+    return <div className="error">{t('common.error', { message: error })}</div>;
   }
 
   return (
@@ -72,8 +74,8 @@ const Home = () => {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h1>Trouvez le professionnel qu'il vous faut</h1>
-          <p>Des services de qualité pour tous vos besoins</p>
+          <h1>{t('hero.title')}</h1>
+          <p>{t('hero.subtitle')}</p>
           <SearchBar onSearch={handleSearch} />
         </div>
       </section>
@@ -81,15 +83,15 @@ const Home = () => {
       {/* Active Offers Section */}
       {offers.length > 0 && (
         <section className="offers-section">
-          <h2>Offres du moment</h2>
+          <h2>{t('offers.title')}</h2>
           <div className="offers-grid">
             {offers.map(offer => (
               <div key={offer._id} className="offer-card">
-                <div className="offer-badge">{offer.discount}% de réduction</div>
+                <div className="offer-badge">{t('offers.discount', { value: offer.discount })}</div>
                 <h3>{offer.title}</h3>
                 <p>{offer.description}</p>
                 <span className="offer-validity">
-                  Valable jusqu'au {new Date(offer.validUntil).toLocaleDateString()}
+                  {t('offers.validUntil', { date: new Date(offer.validUntil).toLocaleDateString() })}
                 </span>
               </div>
             ))}
@@ -99,14 +101,14 @@ const Home = () => {
 
       {/* Services Section */}
       <section className="services-section">
-        <h2>Nos Services</h2>
+        <h2>{t('services.title')}</h2>
         <div className="services-grid">
           {filteredServices.map(service => (
             <ServiceCard key={service._id} service={service} />
           ))}
         </div>
         {filteredServices.length === 0 && (
-          <p className="no-results">Aucun service trouvé</p>
+          <p className="no-results">{t('services.noResults')}</p>
         )}
       </section>
     </div>

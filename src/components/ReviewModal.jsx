@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/api';
 import '../styles/ReviewModal.css';
 
 const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     score: 5,
     comment: '',
@@ -36,7 +38,7 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
       onReviewSubmitted();
       onClose();
     } catch (err) {
-      setError(err.message || 'Erreur lors de la soumission de l\'avis');
+      setError(err.message || t('reviews.error'));
     } finally {
       setLoading(false);
     }
@@ -46,7 +48,7 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Laisser un avis</h2>
+          <h2>{t('reviews.title')}</h2>
           <button className="close-btn" onClick={onClose}>
             &times;
           </button>
@@ -56,11 +58,11 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
           {error && <div className="error-message">{error}</div>}
 
           <div className="service-info">
-            <strong>Service:</strong> {booking.service?.name || 'N/A'}
+            <strong>{t('reviews.service')}:</strong> {booking.service?.name || 'N/A'}
           </div>
 
           <div className="form-group">
-            <label htmlFor="score">Note *</label>
+            <label htmlFor="score">{t('reviews.rating')} *</label>
             <div className="rating-input">
               {[1, 2, 3, 4, 5].map(value => (
                 <label key={value} className="star-label">
@@ -81,14 +83,14 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="comment">Commentaire</label>
+            <label htmlFor="comment">{t('reviews.comment')}</label>
             <textarea
               id="comment"
               name="comment"
               value={formData.comment}
               onChange={handleChange}
               rows="4"
-              placeholder="Partagez votre expérience..."
+              placeholder={t('reviews.placeholder')}
             />
           </div>
 
@@ -99,14 +101,14 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
               onClick={onClose}
               disabled={loading}
             >
-              Annuler
+              {t('booking.cancel')}
             </button>
             <button
               type="submit"
               className="btn-primary"
               disabled={loading}
             >
-              {loading ? 'Envoi...' : 'Soumettre'}
+              {loading ? t('reviews.submitting') : t('reviews.submit')}
             </button>
           </div>
         </form>

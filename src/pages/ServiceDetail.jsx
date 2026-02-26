@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
@@ -7,6 +8,7 @@ import BookingModal from '../components/BookingModal';
 import '../styles/ServiceDetail.css';
 
 const ServiceDetail = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
@@ -49,7 +51,7 @@ const ServiceDetail = () => {
       }
     } catch (err) {
       console.error('Error fetching service details:', err);
-      setError(err.message || 'Erreur lors du chargement du service');
+      setError(err.message || t('common.error', { message: 'Service load failed' }));
       setReviews([]);
     } finally {
       setLoading(false);
@@ -63,7 +65,7 @@ const ServiceDetail = () => {
     }
 
     if (user.type !== 'CLIENT') {
-      alert('Seuls les clients peuvent réserver des services');
+      alert(t('service.onlyClients'));
       return;
     }
 
@@ -71,15 +73,15 @@ const ServiceDetail = () => {
   };
 
   if (loading) {
-    return <div className="loading">Chargement...</div>;
+    return <div className="loading">{t('common.loading')}</div>;
   }
 
   if (error) {
-    return <div className="error">Erreur: {error}</div>;
+    return <div className="error">{t('common.error', { message: error })}</div>;
   }
 
   if (!service) {
-    return <div className="error">Service non trouvé</div>;
+    return <div className="error">{t('service.notFound')}</div>;
   }
 
   return (
@@ -92,30 +94,30 @@ const ServiceDetail = () => {
       <div className="service-content">
         <div className="service-main">
           <div className="service-info">
-            <h2>Description</h2>
-            <p>{service.description || 'Aucune description disponible'}</p>
+            <h2>{t('service.description')}</h2>
+            <p>{service.description || t('service.noDescription')}</p>
           </div>
 
           <div className="service-pricing">
-            <h2>Tarification</h2>
+            <h2>{t('service.pricing')}</h2>
             <div className="price-info">
               <span className="price">{service.priceMin} {service.currency}</span>
-              <span className="duration">Durée: {service.duration} min</span>
+              <span className="duration">{t('service.duration')}: {t('service.minutes', { count: service.duration })}</span>
             </div>
           </div>
 
           {providerInfo && (
             <div className="provider-info">
-              <h2>À propos du prestataire</h2>
+              <h2>{t('service.providerAbout')}</h2>
               <div className="provider-card">
                 <h3>{providerInfo.name}</h3>
                 {providerInfo.providerProfile && (
                   <>
                     {providerInfo.providerProfile.companyName && (
-                      <p><strong>Entreprise:</strong> {providerInfo.providerProfile.companyName}</p>
+                      <p><strong>{t('service.company')}:</strong> {providerInfo.providerProfile.companyName}</p>
                     )}
                     {providerInfo.providerProfile.experienceYears > 0 && (
-                      <p><strong>Expérience:</strong> {providerInfo.providerProfile.experienceYears} ans</p>
+                      <p><strong>{t('service.experience')}:</strong> {t('service.years', { count: providerInfo.providerProfile.experienceYears })}</p>
                     )}
                     <span className={`status-badge ${providerInfo.providerProfile.verificationStatus}`}>
                       {providerInfo.providerProfile.verificationStatus}
@@ -127,37 +129,37 @@ const ServiceDetail = () => {
           )}
 
           <div className="service-reviews">
-            <h2>Avis clients ({reviews.length})</h2>
+            <h2>{t('service.reviews', { count: reviews.length })}</h2>
             {reviews.length > 0 ? (
               <div className="reviews-list">
                 {reviews.map(review => (
                   <div key={review._id} className="review-card">
                     <div className="review-header">
-                      <span className="reviewer-name">{review.reviewer?.name || 'Client'}</span>
+                      <span className="reviewer-name">{review.reviewer?.name || t('service.reviewerFallback')}</span>
                       <span className="rating">{'⭐'.repeat(review.score || 0)} {review.score}/5</span>
                       <span className="date">
                         {new Date(review.createdAt).toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="review-comment">{review.comment || 'Pas de commentaire'}</p>
+                    <p className="review-comment">{review.comment || t('service.noReviewComment')}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p>Aucun avis pour le moment</p>
+              <p>{t('service.noReviews')}</p>
             )}
           </div>
         </div>
 
         <div className="service-sidebar">
           <div className="booking-card">
-            <h3>Réserver ce service</h3>
+              <h3>{t('service.bookThis')}</h3>
             <div className="price-display">
-              <span className="label">À partir de</span>
+                <span className="label">{t('service.from')}</span>
               <span className="amount">{service.priceMin} {service.currency}</span>
             </div>
             <button className="btn-book" onClick={handleBookNow}>
-              Réserver maintenant
+                {t('service.bookNow')}
             </button>
           </div>
         </div>
