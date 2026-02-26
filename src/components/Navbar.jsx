@@ -29,9 +29,14 @@ const Navbar = () => {
             <Link to="/services" className="nav-link">{t('nav.services')}</Link>
           </li>
           {isAuthenticated && (
-            <li className="nav-item">
-              <Link to="/my-bookings" className="nav-link">{t('nav.myBookings')}</Link>
-            </li>
+            <>
+              <li className="nav-item">
+                <Link to="/my-bookings" className="nav-link">{t('nav.myBookings')}</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/my-transactions" className="nav-link">{t('nav.myTransactions')}</Link>
+              </li>
+            </>
           )}
         </ul>
 

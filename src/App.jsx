@@ -10,6 +10,7 @@ import ServiceDetail from './pages/ServiceDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import MyBookings from './pages/MyBookings';
+import MyTransactions from './pages/MyTransactions';
 import './App.css';
 
 function App() {
@@ -38,6 +39,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <MyBookings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-transactions"
+                element={
+                  <ProtectedRoute>
+                    <MyTransactions />
                   </ProtectedRoute>
                 }
               />

@@ -47,6 +47,10 @@ export const API_ENDPOINTS = {
   // Notations
   NOTATIONS: `${API_BASE_URL}/notations`,
   PROVIDER_NOTATION: (providerId) => `${API_BASE_URL}/notations?provider=${providerId}`,
+  
+  // Transactions
+  TRANSACTIONS: `${API_BASE_URL}/transactions`,
+  TRANSACTION_BY_ID: (id) => `${API_BASE_URL}/transactions/${id}`,
 };
 
 export default API_BASE_URL;

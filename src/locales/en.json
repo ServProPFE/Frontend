@@ -3,6 +3,7 @@
     "home": "Home",
     "services": "Services",
     "myBookings": "My Bookings",
+    "myTransactions": "My Transactions",
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
@@ -130,6 +131,32 @@
     "thanks": "Thanks for your review!",
     "placeholder": "Share your experience...",
     "error": "Error submitting review"
+  },
+  "transactions": {
+    "title": "My Transactions",
+    "subtitle": "View your transaction history",
+    "filters": {
+      "all": "All",
+      "PENDING": "Pending",
+      "SUCCESS": "Success",
+      "FAILED": "Failed"
+    },
+    "id": "ID",
+    "amount": "Amount",
+    "method": "Payment Method",
+    "booking": "Booking",
+    "status": "Status",
+    "date": "Date",
+    "methods": {
+      "CARD": "Card",
+      "CASH": "Cash",
+      "PAYPAL": "PayPal",
+      "APPLE_PAY": "Apple Pay",
+      "GOOGLE_PAY": "Google Pay",
+      "KNET": "KNET"
+    },
+    "noData": "No transactions yet",
+    "noDataMessage": "Your transactions will appear here once you make a payment"
   },
   "common": {
     "loading": "Loading...",

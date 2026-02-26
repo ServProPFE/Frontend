@@ -3,6 +3,7 @@
     "home": "الرئيسية",
     "services": "الخدمات",
     "myBookings": "حجوزاتي",
+    "myTransactions": "معاملاتي",
     "login": "تسجيل الدخول",
     "register": "إنشاء حساب",
     "logout": "تسجيل الخروج",
@@ -130,6 +131,32 @@
     "thanks": "شكرا لتقييمك!",
     "placeholder": "شارك تجربتك...",
     "error": "حدث خطأ أثناء إرسال التقييم"
+  },
+  "transactions": {
+    "title": "معاملاتي",
+    "subtitle": "عرض سجل معاملاتك",
+    "filters": {
+      "all": "الكل",
+      "PENDING": "قيد الانتظار",
+      "SUCCESS": "نجحت",
+      "FAILED": "فشلت"
+    },
+    "id": "المعرف",
+    "amount": "المبلغ",
+    "method": "طريقة الدفع",
+    "booking": "الحجز",
+    "status": "الحالة",
+    "date": "التاريخ",
+    "methods": {
+      "CARD": "بطاقة",
+      "CASH": "نقدًا",
+      "PAYPAL": "PayPal",
+      "APPLE_PAY": "Apple Pay",
+      "GOOGLE_PAY": "Google Pay",
+      "KNET": "KNET"
+    },
+    "noData": "لا توجد معاملات بعد",
+    "noDataMessage": "ستظهر معاملاتك هنا بمجرد إجراء عملية دفع"
   },
   "common": {
     "loading": "جارٍ التحميل...",
