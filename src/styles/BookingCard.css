@@ -63,3 +63,141 @@
     width: 100%;
   }
 }
+
+/* Booking Card Styles */
+.booking-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.booking-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.booking-header h3 {
+  font-size: 1.25rem;
+  color: #111827;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.yellow {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.blue {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-badge.purple {
+  background-color: #e9d5ff;
+  color: #6b21a8;
+}
+
+.status-badge.green {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.red {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.booking-info {
+  margin-bottom: 1.25rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0;
+  font-size: 0.95rem;
+}
+
+.info-row .label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.info-row .value {
+  color: #111827;
+  font-weight: 600;
+}
+
+.info-row .value.price {
+  color: #059669;
+  font-size: 1.125rem;
+}
+
+.booking-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.btn-cancel,
+.btn-review {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-cancel:hover {
+  background-color: #fecaca;
+}
+
+.btn-review {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.btn-review:hover {
+  background-color: #bfdbfe;
+}
+
+@media (max-width: 640px) {
+  .booking-actions {
+    flex-direction: column;
+  }
+
+  .btn-cancel,
+  .btn-review {
+    width: 100%;
+  }
+}

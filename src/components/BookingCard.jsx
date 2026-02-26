@@ -1,6 +1,6 @@
 import '../styles/BookingCard.css';
 
-const BookingCard = ({ booking, onCancel, userType }) => {
+const BookingCard = ({ booking, onCancel, onReview, userType }) => {
   const getStatusColor = (status) => {
     const colors = {
       PENDING: 'yellow',
@@ -13,6 +13,7 @@ const BookingCard = ({ booking, onCancel, userType }) => {
   };
 
   const canCancel = booking.status === 'PENDING' || booking.status === 'CONFIRMED';
+  const canReview = booking.status === 'DONE' && userType === 'CLIENT';
 
   return (
     <div className="booking-card">
@@ -67,6 +68,14 @@ const BookingCard = ({ booking, onCancel, userType }) => {
             className="btn-cancel"
           >
             Annuler
+          </button>
+        )}
+        {canReview && (
+          <button
+            onClick={() => onReview(booking)}
+            className="btn-review"
+          >
+            Laisser un avis
           </button>
         )}
       </div>

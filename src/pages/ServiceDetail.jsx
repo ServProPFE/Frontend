@@ -133,12 +133,13 @@ const ServiceDetail = () => {
                 {reviews.map(review => (
                   <div key={review._id} className="review-card">
                     <div className="review-header">
-                      <span className="rating">⭐ {review.rating}/5</span>
+                      <span className="reviewer-name">{review.reviewer?.name || 'Client'}</span>
+                      <span className="rating">{'⭐'.repeat(review.score || 0)} {review.score}/5</span>
                       <span className="date">
                         {new Date(review.createdAt).toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="review-comment">{review.comment}</p>
+                    <p className="review-comment">{review.comment || 'Pas de commentaire'}</p>
                   </div>
                 ))}
               </div>

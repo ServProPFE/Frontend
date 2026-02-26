@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import { useAuth } from '../context/AuthContext';
 import BookingCard from '../components/BookingCard';
+import ReviewModal from '../components/ReviewModal';
 import '../styles/MyBookings.css';
 
 const MyBookings = () => {
@@ -10,6 +11,8 @@ const MyBookings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('ALL');
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
   const { user } = useAuth();
 
   const statuses = ['ALL', 'PENDING', 'CONFIRMED', 'IN_PROGRESS', 'DONE', 'CANCELLED'];
@@ -54,6 +57,16 @@ const MyBookings = () => {
     }
   };
 
+  const handleReview = (booking) => {
+    setSelectedBooking(booking);
+    setShowReviewModal(true);
+  };
+
+  const handleReviewSubmitted = () => {
+    alert('Merci pour votre avis !');
+    fetchBookings();
+  };
+
   const filteredBookings = filter === 'ALL'
     ? bookings
     : bookings.filter(booking => booking.status === filter);
@@ -90,6 +103,7 @@ const MyBookings = () => {
               key={booking._id}
               booking={booking}
               onCancel={handleCancelBooking}
+              onReview={handleReview}
               userType={user?.type}
             />
           ))
@@ -99,6 +113,14 @@ const MyBookings = () => {
           </div>
         )}
       </div>
+
+      {showReviewModal && selectedBooking && (
+        <ReviewModal
+          booking={selectedBooking}
+          onClose={() => setShowReviewModal(false)}
+          onReviewSubmitted={handleReviewSubmitted}
+        />
+      )}
     </div>
   );
 };
