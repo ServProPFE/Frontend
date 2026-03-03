@@ -51,6 +51,10 @@ export const API_ENDPOINTS = {
   // Transactions
   TRANSACTIONS: `${API_BASE_URL}/transactions`,
   TRANSACTION_BY_ID: (id) => `${API_BASE_URL}/transactions/${id}`,
+
+  // Chatbot
+  CHATBOT: `${API_BASE_URL}/chatbot`,
+  CHATBOT_SUGGESTIONS: `${API_BASE_URL}/chatbot/suggestions`,
 };
 
 export default API_BASE_URL;

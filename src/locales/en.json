@@ -158,6 +158,19 @@
     "noData": "No transactions yet",
     "noDataMessage": "Your transactions will appear here once you make a payment"
   },
+  "chatbot": {
+    "toggle": "Toggle chatbot",
+    "title": "AI Assistant",
+    "subtitle": "How can I help you today?",
+    "welcome": "Welcome!",
+    "welcomeMessage": "I'm your AI assistant. Ask me about our services or seek recommendations!",
+    "suggestionsLabel": "Quick suggestions:",
+    "inputPlaceholder": "Type your message here...",
+    "loginRequired": "Please log in to use the chatbot service.",
+    "error": "Sorry, I encountered an error. Please try again.",
+    "by": "by",
+    "viewService": "View Service"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Error: {{message}}",

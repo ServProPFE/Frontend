@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import Chatbot from './components/Chatbot';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
@@ -52,6 +53,7 @@ function App() {
               />
             </Routes>
           </main>
+          <Chatbot />
         </div>
       </AuthProvider>
     </Router>
