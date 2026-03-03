@@ -100,10 +100,6 @@
   color: #fbbf24;
 }
 
-.star-label:hover .star {
-  color: #fcd34d;
-}
-
 .rating-text {
   font-size: 16px;
   font-weight: 600;

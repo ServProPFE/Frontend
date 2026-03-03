@@ -12,11 +12,20 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [hoverRating, setHoverRating] = useState(0);
 
   const handleChange = (e) => {
+    const value = e.target.name === 'score' ? Number(e.target.value) : e.target.value;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
+    });
+  };
+
+  const handleStarClick = (value) => {
+    setFormData({
+      ...formData,
+      score: value,
     });
   };
 
@@ -63,17 +72,30 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
 
           <div className="form-group">
             <label htmlFor="score">{t('reviews.rating')} *</label>
-            <div className="rating-input">
+            <div 
+              className="rating-input"
+              onMouseLeave={() => setHoverRating(0)}
+            >
               {[1, 2, 3, 4, 5].map(value => (
-                <label key={value} className="star-label">
+                <label 
+                  key={value} 
+                  className="star-label"
+                  onMouseEnter={() => setHoverRating(value)}
+                  onClick={() => handleStarClick(value)}
+                >
                   <input
                     type="radio"
                     name="score"
                     value={value}
                     checked={formData.score === value}
                     onChange={handleChange}
+                    style={{ display: 'none' }}
                   />
-                  <span className={`star ${formData.score >= value ? 'filled' : ''}`}>
+                  <span 
+                    className={`star ${
+                      (hoverRating > 0 ? hoverRating : formData.score) >= value ? 'filled' : ''
+                    }`}
+                  >
                     ⭐
                   </span>
                 </label>
