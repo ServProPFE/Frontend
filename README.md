@@ -16,6 +16,7 @@ Customer-facing web app for browsing services, viewing details, and booking prov
 - ⭐ Customer reviews and ratings
 - 👤 User profile management
 - 💳 **Transaction history** (new)
+- 🤖 **AI Chatbot Assistant**: Detects service intent and returns actionable recommendations in EN/AR
 - 🌙 Auto language detection with localStorage persistence
 
 ## Requirements
@@ -48,6 +49,12 @@ Default dev URL: `http://localhost:5173`
 - `/my-bookings` Client bookings history (protected)
 - `/my-transactions` Transaction history (protected) (new)
 
+## Chatbot Integration
+
+- Frontend calls `POST /chatbot` on the backend (which delegates NLP to Python AI service).
+- Chatbot responses include `message`, `confidence`, and optional `recommendedService`.
+- `recommendedService.provider` is an object (`_id`, `name`, `email`, `phone`) and should be rendered using text fields (e.g., provider name), not as a raw object.
+
 ## Internationalization (i18n)
 
 ### Language Switching
@@ -72,6 +79,7 @@ Located in `src/locales/`:
 - Transactions list uses `GET /transactions`.
 - Reservation details are created via `POST /reservation-details` before booking.
 - Transactions created automatically when booking is CONFIRMED.
+- Chatbot endpoint: `POST /chatbot` with `{ message, language }`.
 
 ## Common Issues
 - 404 or HTML response: confirm `VITE_API_BASE_URL` is set to the backend port.
