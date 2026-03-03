@@ -34,7 +34,7 @@ const Chatbot = () => {
     try {
       const data = await apiService.get(API_ENDPOINTS.CHATBOT_SUGGESTIONS);
       const lang = i18n.language?.startsWith('ar') ? 'ar' : 'en';
-      setSuggestions(data[lang] || data.en || []);
+      setSuggestions(data.suggestions || data[lang] || data.en || []);
     } catch (error) {
       console.error('Error loading suggestions:', error);
     }
@@ -102,6 +102,14 @@ const Chatbot = () => {
     }
   };
 
+  const getProviderDisplay = (provider) => {
+    if (!provider) return '';
+    if (typeof provider === 'string') return provider;
+
+    const parts = [provider.name, provider.email, provider.phone].filter(Boolean);
+    return parts.length > 0 ? parts.join(' • ') : '';
+  };
+
   return (
     <div className="chatbot-container">
       {/* Chat Toggle Button */}
@@ -164,7 +172,7 @@ const Chatbot = () => {
                   {msg.service && (
                     <div className="message-service-card">
                       <h4>{msg.service.name}</h4>
-                      <p className="service-provider">{t('chatbot.by')} {msg.service.provider}</p>
+                      <p className="service-provider">{t('chatbot.by')} {getProviderDisplay(msg.service.provider)}</p>
                       <p className="service-price">
                         {msg.service.priceMin} {msg.service.currency}
                       </p>

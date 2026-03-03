@@ -18,7 +18,10 @@ Install necessary Python libraries for NLP (e.g., NLTK, spaCy, Transformers) and
 To begin, I will install the specified Python libraries for natural language processing, machine learning, and chatbot development using `pip`.
 """
 
-pip install nltk spacy transformers scikit-learn torch
+import subprocess
+import sys
+
+subprocess.run([sys.executable, '-m', 'pip', 'install', 'nltk', 'spacy', 'transformers', 'scikit-learn', 'torch'], check=True)
 
 """**Reasoning**:
 The previous step successfully installed (or verified existing installations of) the necessary libraries. Now, to complete the subtask, I need to verify their successful installation by importing them and checking their versions as per the instructions.
@@ -484,7 +487,10 @@ Install the `google-genai` library to enable communication with the Gemini API.
 I will install the `google-genai` library using `pip` to fulfill the first instruction of the subtask.
 """
 
-pip install google-genai
+import subprocess
+import sys
+
+subprocess.run([sys.executable, '-m', 'pip', 'install', 'google-genai'], check=True)
 
 """**Reasoning**:
 The `google-genai` library has been installed (or confirmed as already installed). Now, I will import the `google.generativeai` module to verify its successful installation and accessibility.
