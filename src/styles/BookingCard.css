@@ -16,28 +16,58 @@
 .status-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .filter-btn {
-  padding: 0.5rem 1.25rem;
-  border: 2px solid var(--primary-color);
-  background-color: white;
-  color: var(--primary-color);
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: 0.75rem 1.75rem;
+  border: 2px solid #9ca3af;
+  background-color: #ffffff;
+  color: #111827 !important;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filter-btn:hover {
-  background-color: #eef2ff;
+  background-color: #f9fafb;
+  border-color: #6b7280;
+  color: #000000 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .filter-btn.active {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+  transform: translateY(-1px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .filter-btn {
+    background-color: #374151;
+    color: #e5e7eb;
+    border-color: #4b5563;
+  }
+
+  .filter-btn:hover {
+    background-color: #4b5563;
+    color: #f9fafb;
+    border-color: #6b7280;
+  }
+
+  .filter-btn.active {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border-color: #3b82f6;
+  }
 }
 
 .bookings-list {
