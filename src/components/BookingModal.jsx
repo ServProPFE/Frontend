@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
@@ -15,6 +15,45 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [activeOffer, setActiveOffer] = useState(null);
+
+  useEffect(() => {
+    const fetchActiveOffer = async () => {
+      try {
+        const data = await apiService.get(`${API_ENDPOINTS.OFFERS}?serviceId=${service._id}&active=true`);
+        let offersArray = [];
+        if (Array.isArray(data?.items)) {
+          offersArray = data.items;
+        } else if (Array.isArray(data)) {
+          offersArray = data;
+        }
+        const now = new Date();
+
+        const validOffer = offersArray
+          .filter((offer) => !offer.validUntil || new Date(offer.validUntil) >= now)
+          .sort((a, b) => (Number(b.discount || 0) - Number(a.discount || 0)))[0] || null;
+
+        setActiveOffer(validOffer);
+      } catch {
+        setActiveOffer(null);
+      }
+    };
+
+    fetchActiveOffer();
+  }, [service._id]);
+
+  const priceInfo = useMemo(() => {
+    const basePrice = Number(activeOffer?.basePrice ?? service.priceMin ?? 0);
+    const discount = Math.max(0, Math.min(Number(activeOffer?.discount ?? 0), 100));
+    const total = Math.round((basePrice * (1 - discount / 100) + Number.EPSILON) * 100) / 100;
+
+    return {
+      basePrice,
+      discount,
+      total,
+      hasDiscount: discount > 0,
+    };
+  }, [activeOffer, service.priceMin]);
 
   const handleChange = (e) => {
     setFormData({
@@ -42,7 +81,7 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
         service: service._id,
         provider: service.provider._id || service.provider,
         expectedAt: formData.expectedAt,
-        totalPrice: service.priceMin,
+        totalPrice: priceInfo.total,
         currency: service.currency,
         detail: detailData._id,
       });
@@ -106,8 +145,17 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
 
           <div className="price-summary">
             <span>{t('booking.totalPrice')}:</span>
-            <span className="total-amount">{service.priceMin} {service.currency}</span>
+            <span className="total-amount">{priceInfo.total} {service.currency}</span>
           </div>
+
+          {priceInfo.hasDiscount && (
+            <div className="price-summary" style={{ marginTop: '0.35rem' }}>
+              <span>{t('offers.discount', { value: priceInfo.discount })}</span>
+              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>
+                {priceInfo.basePrice} {service.currency}
+              </span>
+            </div>
+          )}
 
           <div className="modal-actions">
             <button type="button" onClick={onClose} className="btn-secondary">
