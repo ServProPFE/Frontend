@@ -178,5 +178,26 @@
     "save": "Save",
     "yes": "Yes",
     "no": "No"
+  },
+  "serviceNames": {
+    "waterLeakRepair": "Water leak repair",
+    "completeSanitaryInstallation": "Complete sanitary installation",
+    "pipeCleaning": "Water pipe clearing",
+    "electricalInstallation": "House electrical installation",
+    "electricityRepair": "Electricity breakdown repair",
+    "electricalPanelUpgrade": "Electrical panel upgrade",
+    "acInstallation": "AC split installation",
+    "acMaintenance": "AC maintenance and cleaning",
+    "acRepair": "AC repair service",
+    "apartmentCleaning": "Deep cleaning of apartment",
+    "postConstructionCleaning": "Deep cleaning after construction work",
+    "windowCleaning": "Window and facade cleaning",
+    "urgentRepair": "Urgent repair 24/7",
+    "handymanTasks": "Little handyman tasks (furniture assembly, small repairs)"
+  },
+  "offerTitles": {
+    "plumberyPromotion": "Plumbery Promotion - 20% off",
+    "acOffer": "AC Offer - 15% discount",
+    "springCleaning": "Spring Cleaning - 25% off"
   }
 }

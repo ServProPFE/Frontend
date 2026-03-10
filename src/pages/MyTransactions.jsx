@@ -130,7 +130,7 @@ const MyTransactions = () => {
                       <div className="transaction-detail">
                         <span className="label">{t('transactions.booking')}:</span>
                         <span className="value">
-                          {transaction.booking.service?.name || 'Service'} - {transaction.booking.provider?.name || 'Provider'}
+                          {transaction.booking.service?.name ? t(transaction.booking.service.name) : 'Service'} - {transaction.booking.provider?.name || 'Provider'}
                         </span>
                       </div>
                     )}

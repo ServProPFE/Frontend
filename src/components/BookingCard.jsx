@@ -20,7 +20,7 @@ const BookingCard = ({ booking, onCancel, onReview, userType }) => {
   return (
     <div className="booking-card">
       <div className="booking-header">
-        <h3>{booking.service?.name || 'Service'}</h3>
+        <h3>{booking.service?.name ? t(booking.service.name) : 'Service'}</h3>
         <span className={`status-badge ${getStatusColor(booking.status)}`}>
           {t(`booking.status.${booking.status}`)}
         </span>

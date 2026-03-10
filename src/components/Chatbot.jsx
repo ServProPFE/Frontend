@@ -171,7 +171,7 @@ const Chatbot = () => {
                   </div>
                   {msg.service && (
                     <div className="message-service-card">
-                      <h4>{msg.service.name}</h4>
+                      <h4>{t(msg.service.name)}</h4>
                       <p className="service-provider">{t('chatbot.by')} {getProviderDisplay(msg.service.provider)}</p>
                       <p className="service-price">
                         {msg.service.priceMin} {msg.service.currency}

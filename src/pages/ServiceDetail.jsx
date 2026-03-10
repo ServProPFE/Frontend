@@ -87,8 +87,8 @@ const ServiceDetail = () => {
   return (
     <div className="service-detail">
       <div className="service-header">
-        <h1>{service.name}</h1>
-        <span className="category-badge">{service.category}</span>
+        <h1>{t(service.name)}</h1>
+        <span className="category-badge">{t(`services.categories.${service.category}`)}</span>
       </div>
 
       <div className="service-content">

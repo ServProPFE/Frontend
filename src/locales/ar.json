@@ -177,6 +177,26 @@
     "close": "إغلاق",
     "save": "حفظ",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا"  },
+  "serviceNames": {
+    "waterLeakRepair": "إصلاح تسرب المياه",
+    "completeSanitaryInstallation": "تركيب صحي كامل",
+    "pipeCleaning": "تنظيف أنابيب المياه",
+    "electricalInstallation": "تركيب كهرباء منزلي",
+    "electricityRepair": "إصلاح عطل كهربائي",
+    "electricalPanelUpgrade": "تحديث لوحة الكهرباء",
+    "acInstallation": "تركيب مكيف سبليت",
+    "acMaintenance": "صيانة وتنظيف مكيف",
+    "acRepair": "إصلاح مكيف",
+    "apartmentCleaning": "تنظيف عميق لشقة",
+    "postConstructionCleaning": "تنظيف عميق بعد أعمال البناء",
+    "windowCleaning": "تنظيف نوافذ وواجهات",
+    "urgentRepair": "إصلاح عاجل 24/7",
+    "handymanTasks": "مهام صغيرة (تركيب أثاث، إصلاحات بسيطة)"
+  },
+  "offerTitles": {
+    "plumberyPromotion": "عرض سباكة - خصم 20%",
+    "acOffer": "عرض مكيفات - خصم 15%",
+    "springCleaning": "تنظيف الربيع - خصم 25%"
   }
 }

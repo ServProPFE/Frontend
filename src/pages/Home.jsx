@@ -49,9 +49,10 @@ const Home = () => {
     let filtered = services;
 
     if (searchTerm) {
-      filtered = filtered.filter(service =>
-        service.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      filtered = filtered.filter(service => {
+        const translatedName = t(service.name);
+        return translatedName.toLowerCase().includes(searchTerm.toLowerCase());
+      });
     }
 
     if (category && category !== 'ALL') {
@@ -88,7 +89,7 @@ const Home = () => {
             {offers.map(offer => (
               <div key={offer._id} className="offer-card">
                 <div className="offer-badge">{t('offers.discount', { value: offer.discount })}</div>
-                <h3>{offer.title}</h3>
+                <h3>{t(offer.title)}</h3>
                 <p>{offer.description}</p>
                 <span className="offer-validity">
                   {t('offers.validUntil', { date: new Date(offer.validUntil).toLocaleDateString() })}

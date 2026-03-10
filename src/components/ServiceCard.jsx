@@ -8,11 +8,11 @@ const ServiceCard = ({ service }) => {
   return (
     <div className="service-card">
       <div className="service-card-header">
-        <span className="category-badge">{service.category}</span>
+        <span className="category-badge">{t(`services.categories.${service.category}`)}</span>
       </div>
       
       <div className="service-card-body">
-        <h3>{service.name}</h3>
+        <h3>{t(service.name)}</h3>
         <p className="service-description">
           {service.description || t('services.descriptionFallback')}
         </p>

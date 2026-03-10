@@ -42,9 +42,10 @@ const Services = () => {
     let filtered = services;
 
     if (searchTerm) {
-      filtered = filtered.filter(service =>
-        service.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      filtered = filtered.filter(service => {
+        const translatedName = t(service.name);
+        return translatedName.toLowerCase().includes(searchTerm.toLowerCase());
+      });
     }
 
     if (category && category !== 'ALL') {

@@ -67,7 +67,7 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
           {error && <div className="error-message">{error}</div>}
 
           <div className="service-info">
-            <strong>{t('reviews.service')}:</strong> {booking.service?.name || 'N/A'}
+            <strong>{t('reviews.service')}:</strong> {booking.service?.name ? t(booking.service.name) : 'N/A'}
           </div>
 
           <div className="form-group">
