@@ -1,22 +1,56 @@
-### Building and running your application
+# ServPro FrontEnd - Docker Guide
 
-When you're ready, start your application by running:
-`docker compose up --build`.
+Guide Docker pour l'application client ServPro.
 
-Your application will be available at http://localhost:5173.
+## Prerequis
 
-### Deploying your application to the cloud
+- Docker Desktop (Compose v2)
+- Backend ServPro disponible sur `http://localhost:4000`
 
-First, build your image, e.g.: `docker build -t myapp .`.
-If your cloud uses a different CPU architecture than your development
-machine (e.g., you are on a Mac M1 and your cloud provider is amd64),
-you'll want to build the image for that platform, e.g.:
-`docker build --platform=linux/amd64 -t myapp .`.
+## Lancer le frontend client
 
-Then, push it to your registry, e.g. `docker push myregistry.com/myapp`.
+Depuis `ServProFrontEnd/`:
 
-Consult Docker's [getting started](https://docs.docker.com/go/get-started-sharing/)
-docs for more detail on building and pushing.
+```bash
+docker compose up --build
+```
 
-### References
-* [Docker's Node.js guide](https://docs.docker.com/language/nodejs/)
+Application disponible sur:
+- `http://localhost:5173`
+
+## Configuration API
+
+Par defaut, `compose.yaml` utilise:
+
+```env
+VITE_API_BASE_URL=http://localhost:4000
+```
+
+Pour pointer vers une autre API, definir la variable avant de lancer compose.
+
+## Arreter
+
+```bash
+docker compose down
+```
+
+## Build image seule
+
+Depuis `ServProFrontEnd/`:
+
+```bash
+docker build -t servpro-frontend:latest .
+docker run --rm -p 5173:5173 -e VITE_API_BASE_URL=http://localhost:4000 servpro-frontend:latest
+```
+
+## Troubleshooting
+
+1. Ecran vide ou erreurs API:
+- verifier que le backend est joignable depuis le navigateur
+- verifier `VITE_API_BASE_URL`
+
+2. Port 5173 deja utilise:
+- changer le mapping de ports dans `compose.yaml`
+
+3. Container en boucle:
+- consulter `docker compose logs frontend`

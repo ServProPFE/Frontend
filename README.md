@@ -20,7 +20,7 @@ Customer-facing web app for browsing services, viewing details, and booking prov
 - 🌙 Auto language detection with localStorage persistence
 
 ## Requirements
-- Node.js 18+
+- Node.js 20+
 - Backend running on `http://localhost:4000`
 
 ## Setup
