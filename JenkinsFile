@@ -1,18 +1,66 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('Install Dependencies'){
-            steps{
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
                 echo 'Installing dependencies...'
                 bat 'npm ci'
             }
         }
-        stage('Dockerisation'){
-            steps{
-                echo 'Dockerising the application...'
-                // Add Dockerisation steps here
-                bat 'docker compose up -d'
+
+        stage('Build Frontend') {
+            steps {
+                echo 'Building frontend...'
+                bat 'npm run build'
             }
+        }
+
+        stage('Start Container') {
+            steps {
+                echo 'Building and starting container...'
+                bat 'docker compose up -d --build --force-recreate'
+            }
+        }
+
+        stage('Verify Container Is Reachable') {
+            steps {
+                powershell '''
+                    $url = "http://localhost:5173"
+                    $maxAttempts = 12
+                    $delaySeconds = 5
+                    $ready = $false
+
+                    for ($i = 1; $i -le $maxAttempts; $i++) {
+                        try {
+                            $response = Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 5
+                            if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 500) {
+                                $ready = $true
+                                Write-Host "Frontend is reachable on attempt $i with status $($response.StatusCode)."
+                                break
+                            }
+                        } catch {
+                            Write-Host "Attempt $i/$maxAttempts failed: $($_.Exception.Message)"
+                        }
+
+                        Start-Sleep -Seconds $delaySeconds
+                    }
+
+                    if (-not $ready) {
+                        Write-Host "Frontend failed readiness check. Dumping compose status and logs..."
+                        docker compose ps
+                        docker compose logs --tail=200
+                        throw "Frontend container is not reachable on $url"
+                    }
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Stopping and removing frontend container...'
+            bat 'docker compose down --remove-orphans'
         }
     }
 }
