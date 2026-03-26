@@ -41,9 +41,16 @@ pipeline {
         stage('Smoke Test Container') {
             steps {
                 bat 'docker rm -f %CONTAINER_NAME% || ver > nul'
-                bat 'docker run -d --name %CONTAINER_NAME% -p 5173:5173 %IMAGE_NAME%:%IMAGE_TAG%'
+                bat 'docker run -d --name %CONTAINER_NAME% -P %IMAGE_NAME%:%IMAGE_TAG%'
                 powershell '''
-                    $url = "http://localhost:5173"
+                    $portMapping = docker port ${env:CONTAINER_NAME} 5173/tcp
+                    if (-not $portMapping) {
+                        docker logs ${env:CONTAINER_NAME}
+                        throw "Could not determine mapped host port for container port 5173"
+                    }
+
+                    $hostPort = ($portMapping -split ':')[-1].Trim()
+                    $url = "http://localhost:$hostPort"
                     $maxAttempts = 12
                     $delaySeconds = 5
                     $ready = $false
