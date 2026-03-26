@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'servpro-frontend'
+        IMAGE_TAG = 'latest'
+        CONTAINER_NAME = 'servpro-frontend-ci'
+        DEPLOY_K8S = 'false'
+    }
+
     stages {
         stage('Install Dependencies') {
             steps {
@@ -16,15 +23,17 @@ pipeline {
             }
         }
 
-        stage('Start Container') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building and starting container...'
-                bat 'docker compose up -d --build --force-recreate'
+                echo 'Building frontend image...'
+                bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
             }
         }
 
-        stage('Verify Container Is Reachable') {
+        stage('Smoke Test Container') {
             steps {
+                bat 'docker rm -f %CONTAINER_NAME% || ver > nul'
+                bat 'docker run -d --name %CONTAINER_NAME% -p 5173:5173 %IMAGE_NAME%:%IMAGE_TAG%'
                 powershell '''
                     $url = "http://localhost:5173"
                     $maxAttempts = 12
@@ -47,13 +56,30 @@ pipeline {
                     }
 
                     if (-not $ready) {
-                        Write-Host "Frontend failed readiness check. Dumping compose status and logs..."
-                        docker compose ps
-                        docker compose logs --tail=200
+                        Write-Host "Frontend failed readiness check. Dumping container logs..."
+                        docker logs ${env:CONTAINER_NAME}
                         throw "Frontend container is not reachable on $url"
                     }
                 '''
             }
+        }
+
+        stage('Deploy To Kubernetes') {
+            when {
+                expression { env.DEPLOY_K8S == 'true' }
+            }
+            steps {
+                echo 'Applying Kubernetes manifests and restarting frontend deployment...'
+                bat 'kubectl apply -k ..\\k8s'
+                bat 'kubectl rollout restart deployment/frontend -n servpro'
+                bat 'kubectl rollout status deployment/frontend -n servpro --timeout=180s'
+            }
+        }
+    }
+
+    post {
+        always {
+            bat 'docker rm -f %CONTAINER_NAME% || ver > nul'
         }
     }
 }
