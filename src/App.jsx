@@ -12,7 +12,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import MyBookings from './pages/MyBookings';
 import MyTransactions from './pages/MyTransactions';
-import './App.css';
 
 function App() {
   const { i18n } = useTranslation();
@@ -26,7 +25,11 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="App">
+        <div className="relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-60">
+            <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-teal-300/40 blur-3xl" />
+            <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-orange-200/40 blur-3xl" />
+          </div>
           <Navbar />
           <main className="main-content">
             <Routes>
