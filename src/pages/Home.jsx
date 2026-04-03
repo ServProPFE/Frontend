@@ -13,6 +13,18 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [filteredServices, setFilteredServices] = useState([]);
 
+  const normalizeItems = (payload) => {
+    if (Array.isArray(payload?.items)) {
+      return payload.items;
+    }
+
+    if (Array.isArray(payload)) {
+      return payload;
+    }
+
+    return [];
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -26,8 +38,8 @@ const Home = () => {
       ]);
       
       // Backend returns { items: [...] }, handle both formats
-      const servicesArray = Array.isArray(servicesData.items) ? servicesData.items : (Array.isArray(servicesData) ? servicesData : []);
-      const offersArray = Array.isArray(offersData.items) ? offersData.items : (Array.isArray(offersData) ? offersData : []);
+      const servicesArray = normalizeItems(servicesData);
+      const offersArray = normalizeItems(offersData);
       
       setServices(servicesArray);
       setFilteredServices(servicesArray);
@@ -126,7 +138,7 @@ const Home = () => {
           </span>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {filteredServices.map(service => (
             <ServiceCard key={service._id} service={service} />
           ))}

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 
 const ServiceCard = ({ service }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-lg shadow-slate-900/5 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-2xl">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-lg shadow-slate-900/5 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-2xl">
       <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-teal-100 opacity-60 blur-xl transition group-hover:opacity-90" />
 
       <div className="mb-4 flex items-center justify-between">
@@ -14,7 +15,7 @@ const ServiceCard = ({ service }) => {
         </span>
       </div>
       
-      <div className="flex h-full flex-col">
+      <div className="flex h-full flex-1 flex-col">
         <h3 className="display-title mb-2 text-xl font-bold text-slate-900">{t(service.name)}</h3>
         <p className="mb-4 flex-1 text-sm leading-6 text-slate-600">
           {service.description || t('services.descriptionFallback')}
@@ -36,6 +37,18 @@ const ServiceCard = ({ service }) => {
       </div>
     </div>
   );
+};
+
+ServiceCard.propTypes = {
+  service: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    priceMin: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    currency: PropTypes.string.isRequired,
+    duration: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  }).isRequired,
 };
 
 export default ServiceCard;

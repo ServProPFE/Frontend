@@ -111,7 +111,7 @@ const Services = () => {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {filteredServices.map(service => (
           <ServiceCard key={service._id} service={service} />
         ))}
