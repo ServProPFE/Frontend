@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { resolveServiceName } from '../utils/serviceName';
 
 const ServiceCard = ({ service }) => {
   const { t } = useTranslation();
@@ -16,7 +17,7 @@ const ServiceCard = ({ service }) => {
       </div>
       
       <div className="flex h-full flex-1 flex-col">
-        <h3 className="display-title mb-2 text-xl font-bold text-slate-900">{t(service.name)}</h3>
+        <h3 className="display-title mb-2 text-xl font-bold text-slate-900">{resolveServiceName(t, service.name)}</h3>
         <p className="mb-4 flex-1 text-sm leading-6 text-slate-600">
           {service.description || t('services.descriptionFallback')}
         </p>

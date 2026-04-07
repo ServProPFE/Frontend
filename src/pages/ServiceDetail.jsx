@@ -5,6 +5,7 @@ import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import { useAuth } from '../context/AuthContext';
 import BookingModal from '../components/BookingModal';
+import { resolveServiceName } from '../utils/serviceName';
 import '../styles/ServiceDetail.css';
 
 const ServiceDetail = () => {
@@ -87,7 +88,7 @@ const ServiceDetail = () => {
   return (
     <div className="service-detail">
       <div className="service-header">
-        <h1>{t(service.name)}</h1>
+        <h1>{resolveServiceName(t, service.name)}</h1>
         <span className="category-badge">{t(`services.categories.${service.category}`)}</span>
       </div>
 

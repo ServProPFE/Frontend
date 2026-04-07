@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/api';
+import { resolveServiceName } from '../utils/serviceName';
 import '../styles/ReviewModal.css';
 
 const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
@@ -67,7 +68,7 @@ const ReviewModal = ({ booking, onClose, onReviewSubmitted }) => {
           {error && <div className="error-message">{error}</div>}
 
           <div className="service-info">
-            <strong>{t('reviews.service')}:</strong> {booking.service?.name ? t(booking.service.name) : 'N/A'}
+            <strong>{t('reviews.service')}:</strong> {resolveServiceName(t, booking.service?.name, 'N/A')}
           </div>
 
           <div className="form-group">

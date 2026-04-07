@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import { useAuth } from '../context/AuthContext';
+import { resolveServiceName } from '../utils/serviceName';
 import PropTypes from 'prop-types';
 
 const BookingModal = ({ service, onClose, onSuccess }) => {
@@ -121,7 +122,7 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
         <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5 sm:px-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600">Booking</p>
-            <h2 className="display-title mt-1 text-2xl font-bold text-slate-900">{t('booking.title', { name: t(service.name) })}</h2>
+            <h2 className="display-title mt-1 text-2xl font-bold text-slate-900">{t('booking.title', { name: resolveServiceName(t, service.name) })}</h2>
           </div>
           <button className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-bold text-slate-600 transition hover:bg-slate-100" onClick={onClose}>×</button>
         </div>

@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import Navbar from '../components/Navbar';
+import { resolveServiceName } from '../utils/serviceName';
 import '../styles/MyTransactions.css';
 
 const MyTransactions = () => {
@@ -130,7 +131,7 @@ const MyTransactions = () => {
                       <div className="transaction-detail">
                         <span className="label">{t('transactions.booking')}:</span>
                         <span className="value">
-                          {transaction.booking.service?.name ? t(transaction.booking.service.name) : 'Service'} - {transaction.booking.provider?.name || 'Provider'}
+                          {resolveServiceName(t, transaction.booking.service?.name, 'Service')} - {transaction.booking.provider?.name || 'Provider'}
                         </span>
                       </div>
                     )}

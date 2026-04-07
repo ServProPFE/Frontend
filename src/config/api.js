@@ -1,7 +1,7 @@
 // API Configuration
 const isLocalBrowser =
-  typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  globalThis.window !== undefined &&
+  (globalThis.window.location.hostname === 'localhost' || globalThis.window.location.hostname === '127.0.0.1');
 
 const API_BASE_URL = isLocalBrowser
   ? 'http://localhost:4000'
@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   // Auth
   LOGIN: `${API_BASE_URL}/auth/login`,
   REGISTER: `${API_BASE_URL}/auth/register`,
+  PROVIDERS: `${API_BASE_URL}/auth/providers`,
   
   // Services
   SERVICES: `${API_BASE_URL}/services`,

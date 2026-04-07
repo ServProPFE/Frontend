@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { resolveServiceName } from '../utils/serviceName';
 import '../styles/BookingCard.css';
 
 const BookingCard = ({ booking, onCancel, onReview, userType }) => {
@@ -20,7 +21,7 @@ const BookingCard = ({ booking, onCancel, onReview, userType }) => {
   return (
     <div className="booking-card">
       <div className="booking-header">
-        <h3>{booking.service?.name ? t(booking.service.name) : 'Service'}</h3>
+        <h3>{resolveServiceName(t, booking.service?.name, 'Service')}</h3>
         <span className={`status-badge ${getStatusColor(booking.status)}`}>
           {t(`booking.status.${booking.status}`)}
         </span>

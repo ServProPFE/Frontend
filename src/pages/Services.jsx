@@ -4,6 +4,7 @@ import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import ServiceCard from '../components/ServiceCard';
 import SearchBar from '../components/SearchBar';
+import { resolveServiceName } from '../utils/serviceName';
 
 const Services = () => {
   const { t } = useTranslation();
@@ -54,7 +55,7 @@ const Services = () => {
 
     if (searchTerm) {
       filtered = filtered.filter(service => {
-        const translatedName = t(service.name);
+        const translatedName = resolveServiceName(t, service.name);
         return translatedName.toLowerCase().includes(searchTerm.toLowerCase());
       });
     }

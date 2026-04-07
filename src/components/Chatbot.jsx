@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
+import { resolveServiceName } from '../utils/serviceName';
 import '../styles/Chatbot.css';
 
 const Chatbot = () => {
@@ -186,7 +187,7 @@ const Chatbot = () => {
                   </div>
                   {msg.service && (
                     <div className="message-service-card">
-                      <h4>{t(msg.service.name)}</h4>
+                      <h4>{resolveServiceName(t, msg.service.name)}</h4>
                       <p className="service-provider">{t('chatbot.by')} {getProviderDisplay(msg.service.provider)}</p>
                       <p className="service-price">
                         {msg.service.priceMin} {msg.service.currency}

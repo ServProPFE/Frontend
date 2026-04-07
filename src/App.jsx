@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import MyBookings from './pages/MyBookings';
 import MyTransactions from './pages/MyTransactions';
+import Providers from './pages/Providers';
+import ProviderPortfolio from './pages/ProviderPortfolio';
 
 function App() {
   const { i18n } = useTranslation();
@@ -38,6 +40,8 @@ function App() {
               <Route path="/services/:id" element={<ServiceDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/providers" element={<Providers />} />
+              <Route path="/providers/:providerId" element={<ProviderPortfolio />} />
               <Route
                 path="/my-bookings"
                 element={
