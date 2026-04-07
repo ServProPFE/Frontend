@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "services": "Services",
+    "providerList": "Providers",
     "myBookings": "My Bookings",
     "myTransactions": "My Transactions",
     "login": "Login",

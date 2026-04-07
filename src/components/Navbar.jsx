@@ -42,6 +42,9 @@ const Navbar = () => {
             <li>
               <Link to="/services" className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/10" onClick={closeMenu}>{t('nav.services')}</Link>
             </li>
+            <li>
+              <a href="/providers.html" className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/10" onClick={closeMenu}>{t('nav.providerList')}</a>
+            </li>
             {isAuthenticated && (
               <>
                 <li>
