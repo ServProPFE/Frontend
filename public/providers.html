@@ -185,11 +185,13 @@
 
     async function loadProviders() {
       try {
-        const [servicesRes, portfoliosRes] = await Promise.all([
+        const [providersRes, servicesRes, portfoliosRes] = await Promise.all([
+          fetchJson(`${API_BASE_URL}/auth/providers`),
           fetchJson(`${API_BASE_URL}/services`),
           fetchJson(`${API_BASE_URL}/portfolios`),
         ]);
 
+        const providers = Array.isArray(providersRes?.items) ? providersRes.items : (Array.isArray(providersRes) ? providersRes : []);
         const services = Array.isArray(servicesRes?.items) ? servicesRes.items : (Array.isArray(servicesRes) ? servicesRes : []);
         const portfolios = Array.isArray(portfoliosRes?.items) ? portfoliosRes.items : (Array.isArray(portfoliosRes) ? portfoliosRes : []);
 
@@ -215,12 +217,43 @@
           }
         });
 
-        const providerIds = new Set([...serviceCounts.keys(), ...portfolioCounts.keys(), ...providerRawById.keys()]);
-        state.providers = [...providerIds].map((id) => normalizeProvider(
-          providerRawById.get(id) || { _id: id, name: `Provider ${id.slice(0, 6)}` },
-          serviceCounts.get(id) || 0,
-          portfolioCounts.get(id) || 0
-        )).filter(Boolean).sort((a, b) => a.name.localeCompare(b.name));
+        // Source of truth: users with PROVIDER role.
+        state.providers = providers.map((provider) => {
+          const id = String(provider._id || provider.id || '');
+          providerRawById.set(id, provider);
+          return normalizeProvider(
+            provider,
+            serviceCounts.get(id) || 0,
+            portfolioCounts.get(id) || 0
+          );
+        }).filter(Boolean);
+
+        // Include legacy providers referenced by data if user records are missing.
+        const providerIds = new Set([...serviceCounts.keys(), ...portfolioCounts.keys()]);
+        providerIds.forEach((id) => {
+          if (state.providers.some((p) => p.id === id)) {
+            return;
+          }
+
+          const fallbackProvider = normalizeProvider(
+            providerRawById.get(id) || { _id: id, name: `Provider ${id.slice(0, 6)}` },
+            serviceCounts.get(id) || 0,
+            portfolioCounts.get(id) || 0
+          );
+
+          if (fallbackProvider) {
+            state.providers.push(fallbackProvider);
+          }
+        });
+
+        state.providers = state.providers.map((provider) => {
+          const providerId = String(provider.id || provider._id || '');
+          return normalizeProvider(
+            providerRawById.get(providerId) || provider,
+            serviceCounts.get(providerId) || 0,
+            portfolioCounts.get(providerId) || 0
+          );
+        }).filter(Boolean).sort((a, b) => a.name.localeCompare(b.name));
 
         state.filtered = [...state.providers];
         renderProviders();
