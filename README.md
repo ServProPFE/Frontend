@@ -18,6 +18,9 @@ Customer-facing web app for browsing services, viewing details, and booking prov
 - 💳 **Transaction history** (new)
 - 🤖 **AI Chatbot Assistant**: Detects service intent and returns actionable recommendations in EN/AR
 - 🌙 Auto language detection with localStorage persistence
+- 🧑‍🔧 **Providers directory** with portfolio browsing
+- 🧾 **Provider portfolio sections**: info artisant, realisations, localisation, equipe, equipements, certificats, chiffrement, disponibilites
+- 🛟 Safe service-name rendering fallback for unknown i18n keys (example: `serviceNames.apartmentCleaning`)
 
 ## Requirements
 - Node.js 20+
@@ -48,6 +51,8 @@ Default dev URL: `http://localhost:5173`
 - `/register` Client registration
 - `/my-bookings` Client bookings history (protected)
 - `/my-transactions` Transaction history (protected) (new)
+- `/providers` Providers listing page
+- `/providers/:providerId` Provider portfolio page
 
 ## Chatbot Integration
 
@@ -72,14 +77,22 @@ Located in `src/locales/`:
 - RTL (Right-to-Left) support for Arabic
 - Date formatting based on language
 - All UI strings translated
+- Auth subtitle key available in both locales: `auth.subtitle`
+- Unknown service translation keys are humanized instead of displayed raw
 
 ## API Notes
 - List endpoints return `{ items: [...] }`.
+- Providers list uses `GET /auth/providers`.
 - Bookings list uses `GET /bookings?clientId=...`.
 - Transactions list uses `GET /transactions`.
 - Reservation details are created via `POST /reservation-details` before booking.
 - Transactions created automatically when booking is CONFIRMED.
 - Chatbot endpoint: `POST /chatbot` with `{ message, language }`.
+- Provider portfolio page reads:
+	- `GET /services?providerId=...`
+	- `GET /portfolios?providerId=...`
+	- `GET /availability?providerId=...` (auth required)
+	- `GET /certifications?providerId=...` (auth required)
 
 ## Common Issues
 - 404 or HTML response: confirm `VITE_API_BASE_URL` is set to the backend port.

@@ -20,6 +20,28 @@
     "title": "Find the right professional",
     "subtitle": "Quality services for all your needs"
   },
+  "home": {
+    "badge": "Trusted Home Service Platform",
+    "ctaPrimary": "Browse services",
+    "ctaSecondary": "Meet providers",
+    "quickSearch": "Quick Search",
+    "whyTitle": "Why choose ServPro",
+    "offersTag": "Limited Time",
+    "stats": {
+      "services": "Professional Services",
+      "offers": "Active Offers",
+      "support": "Support",
+      "supportValue": "24/7"
+    },
+    "pillars": {
+      "qualityTitle": "Verified Quality",
+      "qualityDescription": "Providers are reviewed with transparent ratings and profile history.",
+      "speedTitle": "Fast Booking",
+      "speedDescription": "Book services in minutes with clear pricing and real-time status flow.",
+      "coverageTitle": "Wide Coverage",
+      "coverageDescription": "From plumbing to cleaning, find the right expert for every task."
+    }
+  },
   "offers": {
     "title": "Deals of the moment",
     "discount": "{{value}}% off",
@@ -172,6 +194,14 @@
     "error": "Sorry, I encountered an error. Please try again.",
     "by": "by",
     "viewService": "View Service"
+  },
+  "footer": {
+    "description": "Professional home services platform connecting clients with trusted providers.",
+    "navigation": "Navigation",
+    "contactTitle": "Contact",
+    "contactLine": "Need help? Reach us anytime.",
+    "copy": "© {{year}} ServPro",
+    "rights": "All rights reserved"
   },
   "common": {
     "loading": "Loading...",

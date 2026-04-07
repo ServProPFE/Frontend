@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import Chatbot from './components/Chatbot';
 import Home from './pages/Home';
@@ -27,7 +28,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="relative overflow-hidden">
+        <div className="app-shell relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0 -z-10 opacity-60">
             <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-teal-300/40 blur-3xl" />
             <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-orange-200/40 blur-3xl" />
@@ -60,6 +61,7 @@ function App() {
               />
             </Routes>
           </main>
+          <Footer />
           <Chatbot />
         </div>
       </AuthProvider>

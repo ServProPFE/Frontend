@@ -45,8 +45,14 @@ h6,
 }
 
 .main-content {
-  min-height: calc(100vh - 78px);
+  flex: 1;
   padding-top: 78px;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .loading {

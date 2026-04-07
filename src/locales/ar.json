@@ -20,6 +20,28 @@
     "title": "اعثر على المهني المناسب",
     "subtitle": "خدمات عالية الجودة لكل احتياجاتك"
   },
+  "home": {
+    "badge": "منصة موثوقة لخدمات المنزل",
+    "ctaPrimary": "تصفح الخدمات",
+    "ctaSecondary": "تعرّف على المزوّدين",
+    "quickSearch": "بحث سريع",
+    "whyTitle": "لماذا تختار ServPro",
+    "offersTag": "لفترة محدودة",
+    "stats": {
+      "services": "خدمات احترافية",
+      "offers": "عروض نشطة",
+      "support": "الدعم",
+      "supportValue": "24/7"
+    },
+    "pillars": {
+      "qualityTitle": "جودة موثقة",
+      "qualityDescription": "يتم تقييم المزوّدين بشفافية عبر التقييمات وسجل الأعمال.",
+      "speedTitle": "حجز سريع",
+      "speedDescription": "احجز الخدمة خلال دقائق مع أسعار واضحة وتتبع للحالة.",
+      "coverageTitle": "تغطية واسعة",
+      "coverageDescription": "من السباكة إلى التنظيف، ستجد الخبير المناسب لكل مهمة."
+    }
+  },
   "offers": {
     "title": "عروض اللحظة",
     "discount": "خصم {{value}}%",
@@ -172,6 +194,14 @@
     "error": "عذراً، حدث خطأ. يرجى المحاولة مرة أخرى.",
     "by": "من",
     "viewService": "عرض الخدمة"
+  },
+  "footer": {
+    "description": "منصة خدمات منزلية احترافية تربط العملاء بالمزوّدين الموثوقين.",
+    "navigation": "التنقل",
+    "contactTitle": "تواصل",
+    "contactLine": "تحتاج مساعدة؟ تواصل معنا في أي وقت.",
+    "copy": "© {{year}} ServPro",
+    "rights": "جميع الحقوق محفوظة"
   },
   "common": {
     "loading": "جارٍ التحميل...",
