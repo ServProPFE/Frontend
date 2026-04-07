@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { API_ENDPOINTS } from '../config/api';
 import apiService from '../services/apiService';
 import { useAuth } from '../context/AuthContext';
@@ -16,14 +17,11 @@ const MyBookings = () => {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const { user } = useAuth();
+  const location = useLocation();
 
   const statuses = ['ALL', 'PENDING', 'CONFIRMED', 'IN_PROGRESS', 'DONE', 'CANCELLED'];
 
-  useEffect(() => {
-    fetchBookings();
-  }, [user]);
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       setLoading(true);
       const clientId = user?._id || user?.id;
@@ -31,7 +29,10 @@ const MyBookings = () => {
         setBookings([]);
         return;
       }
-      const data = await apiService.get(API_ENDPOINTS.MY_BOOKINGS(clientId));
+      const endpoint = user?.type === 'PROVIDER'
+        ? API_ENDPOINTS.MY_PROVIDER_BOOKINGS(clientId)
+        : API_ENDPOINTS.MY_BOOKINGS(clientId);
+      const data = await apiService.get(endpoint);
       // Backend returns { items: [...] }
       const bookingsArray = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
       setBookings(bookingsArray);
@@ -42,7 +43,11 @@ const MyBookings = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    fetchBookings();
+  }, [fetchBookings, location.key]);
 
   const handleCancelBooking = async (bookingId) => {
     if (!window.confirm(t('booking.cancelConfirm'))) {

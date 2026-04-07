@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { API_ENDPOINTS } from '../config/api';
@@ -15,6 +15,21 @@ const Chatbot = () => {
   const [suggestions, setSuggestions] = useState([]);
   const messagesEndRef = useRef(null);
 
+  const resolveServiceId = (service) => service?.id || service?._id;
+
+  const resolveSuggestions = (data, lang) => {
+    if (Array.isArray(data?.suggestions)) {
+      return data.suggestions;
+    }
+    if (Array.isArray(data?.[lang])) {
+      return data[lang];
+    }
+    if (Array.isArray(data?.en)) {
+      return data.en;
+    }
+    return [];
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -23,22 +38,22 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  useEffect(() => {
-    // Load suggestions when chatbot opens
-    if (isOpen && suggestions.length === 0) {
-      loadSuggestions();
-    }
-  }, [isOpen]);
-
-  const loadSuggestions = async () => {
+  const loadSuggestions = useCallback(async () => {
     try {
-      const data = await apiService.get(API_ENDPOINTS.CHATBOT_SUGGESTIONS);
       const lang = i18n.language?.startsWith('ar') ? 'ar' : 'en';
-      setSuggestions(data.suggestions || data[lang] || data.en || []);
+      const data = await apiService.get(`${API_ENDPOINTS.CHATBOT_SUGGESTIONS}?language=${lang}`);
+      setSuggestions(resolveSuggestions(data, lang));
     } catch (error) {
       console.error('Error loading suggestions:', error);
     }
-  };
+  }, [i18n.language]);
+
+  useEffect(() => {
+    // Load suggestions when chatbot opens, and refresh if language changed.
+    if (isOpen) {
+      loadSuggestions();
+    }
+  }, [isOpen, loadSuggestions]);
 
   const handleSendMessage = async (messageText = null) => {
     const message = messageText || inputMessage.trim();
@@ -72,9 +87,9 @@ const Chatbot = () => {
 
       const botMessage = {
         type: 'bot',
-        text: response.message,
-        service: response.recommendedService,
-        confidence: response.confidence,
+        text: response?.message || t('chatbot.error'),
+        service: response?.recommendedService || response?.service || null,
+        confidence: response?.confidence,
         timestamp: new Date()
       };
 
@@ -82,7 +97,7 @@ const Chatbot = () => {
     } catch (error) {
       const errorMessage = {
         type: 'bot',
-        text: t('chatbot.error'),
+        text: error?.message ? `${t('chatbot.error')} (${error.message})` : t('chatbot.error'),
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -179,9 +194,11 @@ const Chatbot = () => {
                       <p className="service-duration">
                         {msg.service.duration} {i18n.language?.startsWith('ar') ? 'دقيقة' : 'minutes'}
                       </p>
-                      <a href={`/services/${msg.service.id}`} className="service-link">
-                        {t('chatbot.viewService')}
-                      </a>
+                      {resolveServiceId(msg.service) ? (
+                        <a href={`/services/${resolveServiceId(msg.service)}`} className="service-link">
+                          {t('chatbot.viewService')}
+                        </a>
+                      ) : null}
                     </div>
                   )}
                   <span className="message-time">

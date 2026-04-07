@@ -21,6 +21,7 @@ export const API_ENDPOINTS = {
   BOOKINGS: `${API_BASE_URL}/bookings`,
   BOOKING_BY_ID: (id) => `${API_BASE_URL}/bookings/${id}`,
   MY_BOOKINGS: (clientId) => `${API_BASE_URL}/bookings?clientId=${clientId}`,
+  MY_PROVIDER_BOOKINGS: (providerId) => `${API_BASE_URL}/bookings?providerId=${providerId}`,
 
   // Reservation Details
   RESERVATION_DETAILS: `${API_BASE_URL}/reservation-details`,

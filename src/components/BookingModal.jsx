@@ -17,6 +17,19 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
   const [error, setError] = useState('');
   const [activeOffer, setActiveOffer] = useState(null);
 
+  const resolveRefId = (value) => {
+    if (!value) {
+      return undefined;
+    }
+    if (typeof value === 'string') {
+      return value;
+    }
+    if (typeof value === 'object') {
+      return value._id || value.id;
+    }
+    return undefined;
+  };
+
   useEffect(() => {
     const fetchActiveOffer = async () => {
       try {
@@ -68,6 +81,13 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
     setLoading(true);
 
     try {
+      const clientId = resolveRefId(user);
+      const providerId = resolveRefId(service.provider);
+
+      if (!clientId || !providerId) {
+        throw new Error(t('booking.error'));
+      }
+
       // First create reservation detail
       const detailData = await apiService.post(API_ENDPOINTS.RESERVATION_DETAILS, {
         address: formData.address,
@@ -77,9 +97,9 @@ const BookingModal = ({ service, onClose, onSuccess }) => {
 
       // Then create booking
       await apiService.post(API_ENDPOINTS.BOOKINGS, {
-        client: user?._id || user?.id,
+        client: clientId,
         service: service._id,
-        provider: service.provider._id || service.provider,
+        provider: providerId,
         expectedAt: formData.expectedAt,
         totalPrice: priceInfo.total,
         currency: service.currency,
