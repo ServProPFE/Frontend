@@ -63,6 +63,7 @@
   "auth": {
     "loginTitle": "Login",
     "registerTitle": "Register",
+    "subtitle": "Access your account to book and manage services",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm password",
