@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -9,6 +9,7 @@ const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
 
   const handleLogout = () => {
@@ -18,6 +19,32 @@ const Navbar = () => {
   };
 
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      document.body.style.overflow = '';
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [menuOpen]);
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-slate-700/20 bg-slate-950/80 backdrop-blur-lg">
@@ -31,11 +58,13 @@ const Navbar = () => {
           type="button"
           className="rounded-lg border border-white/20 px-3 py-2 text-sm font-semibold text-white md:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
+          aria-expanded={menuOpen}
+          aria-controls="frontend-navbar-menu"
         >
           Menu
         </button>
 
-        <div className={`${menuOpen ? 'flex' : 'hidden'} absolute left-0 right-0 top-[78px] flex-col gap-4 border-b border-slate-200/20 bg-slate-950/95 px-4 py-4 md:static md:flex md:flex-row md:items-center md:gap-8 md:border-none md:bg-transparent md:p-0`}>
+        <div id="frontend-navbar-menu" className={`${menuOpen ? 'flex' : 'hidden'} absolute left-0 right-0 top-[78px] flex-col gap-4 border-b border-slate-200/20 bg-slate-950/95 px-4 py-4 md:static md:flex md:flex-row md:items-center md:gap-8 md:border-none md:bg-transparent md:p-0`}>
           <ul className="flex flex-col gap-2 md:flex-row md:items-center md:gap-1">
             <li>
               <Link to="/" className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/10" onClick={closeMenu}>{t('nav.home')}</Link>

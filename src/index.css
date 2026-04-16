@@ -22,6 +22,14 @@ body,
   min-height: 100%;
 }
 
+html {
+  scroll-padding-top: calc(78px + env(safe-area-inset-top));
+}
+
+#root {
+  isolation: isolate;
+}
+
 body {
   margin: 0;
   font-family: 'Manrope', 'Segoe UI', sans-serif;
@@ -46,13 +54,27 @@ h6,
 
 .main-content {
   flex: 1;
-  padding-top: 78px;
+  padding-top: calc(78px + env(safe-area-inset-top));
 }
 
 .app-shell {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+@media (max-width: 640px) {
+  .main-content {
+    padding-top: calc(74px + env(safe-area-inset-top));
+  }
 }
 
 .loading {
