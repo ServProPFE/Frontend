@@ -137,10 +137,8 @@ const ProviderPortfolio = () => {
             <h2 className="text-xl font-semibold text-slate-900">{t('providerPortfolio.profileTitle')}</h2>
             <div className="mt-4 space-y-2 text-sm text-slate-700">
               <p><span className="font-semibold text-slate-900">{t('providerPortfolio.name')}:</span> {provider?.name || '-'}</p>
-              <p><span className="font-semibold text-slate-900">{t('providerPortfolio.company')}:</span> {profile.companyName || '-'}</p>
               <p><span className="font-semibold text-slate-900">{t('providerPortfolio.email')}:</span> {provider?.email || '-'}</p>
               <p><span className="font-semibold text-slate-900">{t('providerPortfolio.phone')}:</span> {provider?.phone || '-'}</p>
-              <p><span className="font-semibold text-slate-900">{t('providerPortfolio.location', { defaultValue: 'Location' })}:</span> {formatLocation(provider, t)}</p>
               <p><span className="font-semibold text-slate-900">{t('providerPortfolio.experience')}:</span> {t('providerPortfolio.years', { count: profile.experienceYears || 0 })}</p>
               <p><span className="font-semibold text-slate-900">{t('providerPortfolio.status')}:</span> {profile.verificationStatus || 'PENDING'}</p>
             </div>
