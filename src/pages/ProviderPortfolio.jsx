@@ -159,7 +159,7 @@ const ProviderPortfolio = () => {
                 </div>
                 <div className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">{t('providerPortfolio.locationTitle')}</p>
-                  <p className="mt-2 text-sm font-medium text-white">{formatLocation(provider, t('providerPortfolio.notProvided'))}</p>
+                  <p className="mt-2 text-sm font-medium text-white">{formatLocation(provider, t)}</p>
                 </div>
                 <div className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">{t('providerPortfolio.turnoverTitle')}</p>
