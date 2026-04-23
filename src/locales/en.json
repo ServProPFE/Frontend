@@ -37,7 +37,10 @@
   "search": {
     "placeholder": "Search for a service...",
     "categoryAll": "All categories",
-    "button": "Search"
+    "button": "Search",
+    "tipLabel": "Search tips",
+    "scopeHint": "Search by service name, category, price, or duration.",
+    "clear": "Clear filters"
   },
   "hero": {
     "title": "Find the right professional",
