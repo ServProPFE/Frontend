@@ -63,6 +63,7 @@ const Providers = () => {
   const [providers, setProviders] = useState([]);
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
+  const [selectedProvider, setSelectedProvider] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -208,7 +209,7 @@ const Providers = () => {
     };
   }, [providers]);
 
-  const featuredProvider = filteredProviders[0] || providers[0] || null;
+  const featuredProvider = selectedProvider || filteredProviders[0] || providers[0] || null;
   const featuredMapUrl = buildMapsSearchUrl(
     featuredProvider?.name,
     featuredProvider?.companyName,
@@ -293,9 +294,12 @@ const Providers = () => {
               <div className="space-y-4">
                 {filteredProviders.map((provider) => {
                   const mapsUrl = buildMapsSearchUrl(provider.name, provider.companyName, provider.location);
+                  const isSelected = selectedProvider?.id === provider.id;
 
                   return (
-                    <article key={provider.id} className="group relative rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-lg shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-xl">
+                    <article key={provider.id} onClick={() => setSelectedProvider(provider)} className={`group relative rounded-[1.75rem] border-2 bg-white p-5 shadow-lg transition cursor-pointer hover:-translate-y-0.5 hover:shadow-xl ${
+                      isSelected ? 'border-teal-500 bg-teal-50/50 shadow-lg shadow-teal-200/50' : 'border-slate-200 shadow-slate-900/5'
+                    }`}>
                       {/* Location Tooltip on Hover */}
                       <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                         <div className="relative bg-slate-900 text-white px-4 py-3 rounded-xl text-sm font-semibold max-w-xs shadow-xl">
