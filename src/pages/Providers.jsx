@@ -295,7 +295,21 @@ const Providers = () => {
                   const mapsUrl = buildMapsSearchUrl(provider.name, provider.companyName, provider.location);
 
                   return (
-                    <article key={provider.id} className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-lg shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-xl">
+                    <article key={provider.id} className="group relative rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-lg shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-xl">
+                      {/* Location Tooltip on Hover */}
+                      <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                        <div className="relative bg-slate-900 text-white px-4 py-3 rounded-xl text-sm font-semibold max-w-xs shadow-xl">
+                          <div className="flex items-start gap-2">
+                            <span className="text-teal-300 mt-0.5">📍</span>
+                            <div>
+                              <p className="text-xs uppercase tracking-wider text-slate-300">{t('providers.location')}</p>
+                              <p className="mt-1 text-base">{provider.location}</p>
+                            </div>
+                          </div>
+                          <div className="absolute -bottom-1 right-4 w-2 h-2 bg-slate-900 transform rotate-45" />
+                        </div>
+                      </div>
+
                       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-3">
